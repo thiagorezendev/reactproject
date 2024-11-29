@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE = 'https://1ff9-191-240-61-82.ngrok-free.app/api/';
+const BASE = 'http://localhost:8080';
 
 const URI = 'login';
 
