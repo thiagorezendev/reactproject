@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import api from '../../api/api';
+import apischool from '../../api/apischool';
 import { useNavigate } from 'react-router-dom';
 
 const RegisterSchema = Yup.object().shape({
   schoolName: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required').matches(/[a-zA-Z]/, 'Name can only contain letters!'),
   location: Yup.string().required('Required'),
-  // principalName: Yup.string().required('No password provided.').min(8, 'Password is to short'),
+  principalName: Yup.string().required('Required').min(8, 'Too Short!'),
 });
 
 const RegisterSchool = () => {
@@ -21,7 +21,7 @@ const RegisterSchool = () => {
           validationSchema={RegisterSchema}
           onSubmit={async(values, { setSubmitting }) => {
             try {
-              const result = await api.post('/school', values);
+              const result = await apischool.post('/school', values);
               console.log(result);
               setSubmitting(false);
               navigate('/login');
@@ -44,6 +44,7 @@ const RegisterSchool = () => {
               <label htmlFor="principalName" className='label'>Diretor(a)</label>
               <Field type="text" name="principalName" className='input'/>
               <ErrorMessage name="principalName" component="div" />
+              
               <button type="submit" disabled={isSubmitting} className='btn'>
                 send
               </button>

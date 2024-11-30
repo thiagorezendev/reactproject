@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const BASE = 'http://localhost:8080';
+const BASE_URL_SCHOOL = 'http://localhost:8082';
 
 const URI = 'login';
 
 const token = window.localStorage.getItem('token');
 
-const api = axios.create({
-    baseURL: BASE,
+const school = axios.create({
+    baseURL: BASE_URL_SCHOOL,
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'Application/json',
@@ -15,4 +15,4 @@ const api = axios.create({
     },
   });
 
-export default api;
+export default school;
