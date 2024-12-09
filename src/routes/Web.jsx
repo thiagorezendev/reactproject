@@ -1,36 +1,25 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from '../pages/home/Home';
-import Login from '../pages/auth/Login';
-import RegisterSchool from '../pages/auth/RegisterSchool';
-import RegisterStudent from '../pages/auth/RegisterStudent';
-
-
-export const ProtectedRoutes = ({children}) => {
-    const user = localStorage.getItem('token');
-
-    if(user && user !== ''){
-        return children;
-    } else {
-        return <Navigate to="/login" />
-    }
-
-};
+import Home from '../pages/Home';
+import CreateSchool from '../pages/School/Create';
+import CreateStudent from '../pages/Student/Create';
+import IndexSchool from '../pages/School/Index';
+import IndexStudent from '../pages/Student/Index';
+import Register from '../pages/Auth/Register';
+import Login from '../pages/Auth/Login';
+import PrivateRoute from './PrivateRoute';
 
 const Web = () => {
   return (
     <BrowserRouter>
         <Routes>
-            <Route path='/' element={<Home />}/>
+            <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>}/>
+            <Route path='/school' element={<PrivateRoute><IndexSchool /></PrivateRoute>}/>
+            <Route path='/student' element={<PrivateRoute><IndexStudent /></PrivateRoute>}/>
+            <Route path='/school/create' element={<PrivateRoute><CreateSchool /></PrivateRoute>}/>
+            <Route path='/student/create' element={<PrivateRoute><CreateStudent /></PrivateRoute>}/>
+            <Route path='/register' element={<Register />}/>
             <Route path='/login' element={<Login />}/>
-            <Route path='/register' element={<RegisterSchool />}/>
-            <Route path='/registerstu' element={<RegisterStudent />}/>
-
-            <Route path='/dashboard' element={
-                <ProtectedRoutes>
-                    <Home /> 
-                </ProtectedRoutes>
-            }/>
         </Routes>
     </BrowserRouter>
   );
